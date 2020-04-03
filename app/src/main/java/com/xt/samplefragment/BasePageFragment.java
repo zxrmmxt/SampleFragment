@@ -8,22 +8,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.xt.samplefragment.CommonFragment;
+
 /**
  * @author xt on 2019/8/19 13:05
- * 1、ViewPager+BasePageFragment
- * 1、ViewPager+BasePageFragment
+ * 1、Activity+ViewPager+BasePageFragment
+ * 2、Activity+BaseFragment+ViewPager+BasePageFragment
  */
 public abstract class BasePageFragment extends CommonFragment {
-    private static final String  TAG = BasePageFragment.class.getSimpleName();
+    private static final String  TAG          = BasePageFragment.class.getSimpleName();
     protected            View    mRootView;
-    private              boolean isInitData;
+    private              boolean mIsFirstLoad = true;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(getLayoutId(), container, false);
             initViews(mRootView);
-            loadDataLogic();
         }
         return mRootView;
     }
@@ -32,30 +33,32 @@ public abstract class BasePageFragment extends CommonFragment {
 
     protected abstract void initViews(View view);
 
-    /**
-     * 使用场景：当fragment结合viewpager使用的时候 这个方法会调用
-     * 这个方法是在oncreateView之前使用 不要使用控件
-     *
-     * @param isVisibleToUser
-     */
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (mRootView == null) {
-            return;
-        }
+    public void onResume() {
+        super.onResume();
         loadDataLogic();
     }
 
-    private void loadDataLogic() {
-        if (getUserVisibleHint()) {
-            if (!isInitData) {
-                isInitData = true;
-                initData();
-            }
-            updateData();
-        }
+    /**
+     * 如果我们使用的是FragmentPagerAdapter，
+     * 切换导致Fragment被销毁时是不会执行onDestory()和onDetach()方法的，
+     * 只会执行到onDestroyView()方法，因此在onDestroyView()方法中我们还需要将{@link #mIsFirstLoad}这个变量重置，
+     * 否则当Fragment再次可见时就不会调用{@link #initData()}
+     */
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mIsFirstLoad = true;
     }
+
+    private void loadDataLogic() {
+        if (mIsFirstLoad) {
+            mIsFirstLoad = false;
+            initData();
+        }
+        updateData();
+    }
+
 
     /**
      * 第一次显示才调用

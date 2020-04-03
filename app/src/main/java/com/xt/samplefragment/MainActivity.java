@@ -21,4 +21,11 @@ public class MainActivity extends AppCompatActivity {
     public void FragmentNestList(View view) {
         startActivity(new Intent(this, FragmentNestListSampleActivity.class));
     }
+
+    public void viewPagerFragment(View view) {
+        startActivity(new Intent(this, ViewPagerFragmentSampleActivity.class));
+    }
+    public void fragmentViewPagerFragment(View view) {
+        startActivity(new Intent(this, FragmentViewPagerFragmentSampleActivity.class));
+    }
 }

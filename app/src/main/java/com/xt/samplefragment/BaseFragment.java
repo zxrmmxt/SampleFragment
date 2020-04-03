@@ -61,12 +61,11 @@ public abstract class BaseFragment extends CommonFragment {
                 List<Fragment> fragments = getChildFragmentManager().getFragments();
                 if (!fragments.isEmpty()) {
                     for (Fragment fragment : fragments) {
-                        fragment.setUserVisibleHint(fragment.getUserVisibleHint());
-                        /*if (fragment instanceof BasePageFragment) {
-                            if (fragment.getUserVisibleHint()) {
-                                ((BasePageFragment) fragment).updateData();
+                        if (fragment instanceof BasePageFragment) {
+                            if (fragment.isResumed()) {
+                                fragment.onResume();
                             }
-                        }*/
+                        }
                     }
                 }
             }
@@ -90,12 +89,11 @@ public abstract class BaseFragment extends CommonFragment {
             if (!fragments.isEmpty()) {
                 for (Fragment fragment : fragments) {
                     fragment.onHiddenChanged(fragment.isHidden());
-                    fragment.setUserVisibleHint(fragment.getUserVisibleHint());
-                    /*if (fragment instanceof BasePageFragment) {
-                        if (fragment.getUserVisibleHint()) {
-                            ((BasePageFragment) fragment).updateData();
+                    if (fragment instanceof BasePageFragment) {
+                        if (fragment.isResumed()) {
+                            fragment.onResume();
                         }
-                    }*/
+                    }
                 }
             }
         }

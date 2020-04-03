@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:onClick="FragmentList"
-            android:text="FragmentList"
+            android:text="Activity+Fragments"
             android:textAllCaps="false" />
 
         <Button
@@ -25,7 +25,23 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:onClick="FragmentNestList"
-            android:text="FragmentNestList"
+            android:text="Activity+Fragments+Fragments"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:onClick="viewPagerFragment"
+            android:text="Activity+ViewPager+Fragments"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:onClick="fragmentViewPagerFragment"
+            android:text="Activity+Fragments+ViewPager+Fragments"
             android:textAllCaps="false" />
     </LinearLayout>
 

@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".FragmentListSampleActivity" />
         <activity android:name=".FragmentNestListSampleActivity" />
+        <activity android:name=".ViewPagerFragmentSampleActivity" />
+        <activity android:name=".FragmentViewPagerFragmentSampleActivity" />
     </application>
 
 </manifest>
