@@ -1,4 +1,4 @@
-package com.xt.samplefragment;
+package com.xt.common;
 
 import androidx.fragment.app.Fragment;
 

@@ -1,4 +1,4 @@
-package com.xt.samplefragment;
+package com.xt.common;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.xt.samplefragment.CommonFragment;
 
 /**
  * @author xt on 2019/8/19 13:05

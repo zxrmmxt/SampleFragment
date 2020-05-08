@@ -3,6 +3,8 @@ package com.xt.samplefragment;
 import android.view.View;
 import android.widget.Toast;
 
+import com.xt.common.BasePageFragment;
+
 import java.util.Locale;
 
 /**

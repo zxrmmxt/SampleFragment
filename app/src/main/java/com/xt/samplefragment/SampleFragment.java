@@ -2,6 +2,8 @@ package com.xt.samplefragment;
 
 import android.widget.Toast;
 
+import com.xt.common.BaseFragment;
+
 import java.util.Locale;
 
 /**

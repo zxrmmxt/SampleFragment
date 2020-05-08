@@ -1,4 +1,4 @@
-package com.xt.samplefragment;
+package com.xt.common;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
