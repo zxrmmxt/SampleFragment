@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -67,18 +68,20 @@ public class ViewPagerFragmentSampleActivity extends AppCompatActivity {
                 return mFragments.size();
             }
 
+            @NonNull
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
             }
 
+            @NonNull
             @Override
-            public Object instantiateItem(ViewGroup container, int position) {
+            public Object instantiateItem(@NonNull ViewGroup container, int position) {
                 return super.instantiateItem(container, position);
             }
 
             @Override
-            public int getItemPosition(Object object) {
+            public int getItemPosition(@NonNull Object object) {
                 return POSITION_UNCHANGED;
             }
 
