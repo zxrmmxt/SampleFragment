@@ -93,6 +93,23 @@ public class ViewPagerFragmentSampleActivity extends AppCompatActivity {
         };
         mViewPager.setAdapter(mFragmentPagerAdapter);
 
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mViewPager.setCurrentItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         refreshViewPager();
     }
 
