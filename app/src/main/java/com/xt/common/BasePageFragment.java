@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * @author xt on 2019/8/19 13:05
@@ -14,9 +15,9 @@ import androidx.annotation.Nullable;
  * 2、Activity+BaseFragment+ViewPager+BasePageFragment
  */
 public abstract class BasePageFragment extends CommonFragment {
-    private static final String  TAG          = BasePageFragment.class.getSimpleName();
-    protected            View    mRootView;
-    private              boolean mIsFirstLoad = true;
+    private static final String TAG = BasePageFragment.class.getSimpleName();
+    protected View mRootView;
+    private boolean mIsFirstLoad = true;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,6 +35,25 @@ public abstract class BasePageFragment extends CommonFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        Fragment parentFragment = getParentFragment();
+
+        if ((parentFragment instanceof BaseFragment)) {
+            if (parentFragment.isHidden()) {
+                return;
+            }
+        }
+
+        if ((parentFragment instanceof BasePageFragment)) {
+            if (!parentFragment.isResumed()) {
+                return;
+            }
+        }
+
+        if (isHidden()) {
+            return;
+        }
+
         loadDataLogic();
     }
 

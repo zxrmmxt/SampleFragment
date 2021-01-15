@@ -23,7 +23,7 @@ import java.util.List;
 
 public abstract class BaseFragment extends CommonFragment {
     private static final String TAG = BaseFragment.class.getSimpleName();
-    protected            View   mRootView;
+    protected View mRootView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,23 +53,26 @@ public abstract class BaseFragment extends CommonFragment {
     @Override
     public void onResume() {
         super.onResume();
-        //未嵌套fragment
-        if (!isHidden()) {
-            updateData();
-            {
-                //处理fragment嵌套的关键逻辑
-                List<Fragment> fragments = getChildFragmentManager().getFragments();
-                if (!fragments.isEmpty()) {
-                    for (Fragment fragment : fragments) {
-                        if (fragment instanceof BasePageFragment) {
-                            if (fragment.isResumed()) {
-                                fragment.onResume();
-                            }
-                        }
-                    }
-                }
+
+        Fragment parentFragment = getParentFragment();
+
+        if ((parentFragment instanceof BaseFragment)) {
+            if (parentFragment.isHidden()) {
+                return;
             }
         }
+
+        if ((parentFragment instanceof BasePageFragment)) {
+            if (!parentFragment.isResumed()) {
+                return;
+            }
+        }
+
+        if (isHidden()) {
+            return;
+        }
+
+        updateData();
     }
 
     /**
@@ -81,23 +84,28 @@ public abstract class BaseFragment extends CommonFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden) {
-            updateData();
 
-            //处理fragment嵌套的关键逻辑
-            List<Fragment> fragments = getChildFragmentManager().getFragments();
-            if (!fragments.isEmpty()) {
-                for (Fragment fragment : fragments) {
-                    fragment.onHiddenChanged(fragment.isHidden());
-                    if (fragment instanceof BasePageFragment) {
-                        if (fragment.isResumed()) {
-                            fragment.onResume();
-                        }
+        if (hidden) {
+            return;
+        }
+
+        updateData();
+
+        //处理fragment嵌套的关键逻辑
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (!fragments.isEmpty()) {
+            for (Fragment fragment : fragments) {
+                if (!fragment.isHidden()) {
+                    fragment.onHiddenChanged(false);
+                }
+
+                if (fragment instanceof BasePageFragment) {
+                    if (fragment.isResumed()) {
+                        fragment.onResume();
                     }
                 }
             }
         }
-
 
     }
 
